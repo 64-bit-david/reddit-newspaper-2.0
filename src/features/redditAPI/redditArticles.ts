@@ -43,7 +43,8 @@ export const fetchArticles = createAsyncThunk(
         return (
           !subRedditPost.data.stickied &&
           subRedditPost.data.stickied !== "BOT" &&
-          subRedditPost.data.body !== "[removed]"
+          subRedditPost.data.body !== "[removed]" &&
+          subRedditPost.data.over_18 === false
         );
       }
     );
@@ -66,28 +67,25 @@ export const fetchArticles = createAsyncThunk(
 
         const filteredComments = comments.reduce(
           (filtered: any, comment: any) => {
-            const count = 2;
             if (
               !comment.data.sticked &&
               comment.data.author_flair_text !== "BOT" &&
-              comment.data.body !== "[removed]" &&
-              count > 0
+              comment.data.body !== "[removed]"
             ) {
               const filteredComment: any = {};
               filteredComment.body = comment.data.body;
+              filteredComment.createdAt = comment.data.created;
+              filteredComment.author = comment.data.author;
+              filteredComment.url = comment.data.permalink;
               if (filteredComment.body.slice(0, 4) === "&gt;") {
                 filteredComment.body = filteredComment.body.slice(4);
               }
-              console.log(filteredComment.body);
-
               filtered.push(filteredComment);
             }
             return filtered;
           },
           []
         );
-
-        console.log(filteredComments);
 
         // const commentsWithStickedRemoved = comments.filter(
         //   (comment: any): any => {
