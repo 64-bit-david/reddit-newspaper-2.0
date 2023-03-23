@@ -13,13 +13,13 @@ const SubRedditView = () => {
     const subRedditList = ['worldnews', 'news', 'politics', 'ukpolitics', 'askreddit']
 
 
-    const subReddit = useAppSelector((state:RootState) => state.subReddit);
+    const subReddit = useAppSelector((state:RootState) => state.subReddit.subRedditName);
 
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         let subreddit = e.currentTarget.value
         dispatch(selectSubReddit(subreddit))
-        dispatch(fetchArticles())
+        dispatch(fetchArticles(subReddit))
     }
 
     

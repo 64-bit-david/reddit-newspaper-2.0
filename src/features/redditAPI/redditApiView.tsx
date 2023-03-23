@@ -9,11 +9,12 @@ const redditApiView = () => {
 
     //access articles state from reducer
     const articles = useAppSelector(state => state.articles)
-    const subreddit = useAppSelector(state => state.subReddit)
+    const subreddit = useAppSelector(state => state.subReddit.subRedditName)
+    console.log(subreddit)
 
     useEffect(() => {
         //dispatch the action
-        dispatch(fetchArticles())
+        dispatch(fetchArticles(subreddit))
 
     }, [subreddit])
     

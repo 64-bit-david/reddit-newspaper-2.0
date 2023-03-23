@@ -27,53 +27,85 @@ const initialState: InitialState = {
   error: "",
 };
 
-//need to get subreddit state into here?
+//fetch and return relevant data in the form of an article
 export const fetchArticles = createAsyncThunk(
   "redditApi/fetchArticles",
-  async () => {
-    // const subreddit = store.getState().subReddit;
-    // const subRedditEndPoint = `/r/${subreddit}.json`;
-    const subRedditEndPoint = "/r/worldnews";
-
+  async (subreddit: string) => {
     // request trending posts from subreddit endpoint
-    const subRedditMetaData = await fetchReddit.get(
-      `${subRedditEndPoint}.json`
+    const subRedditEndPoint = `/r/${subreddit}.json`;
+    const subRedditMetaData = await fetchReddit.get(subRedditEndPoint);
+
+    const subRedditPosts: [] = subRedditMetaData.data.data.children;
+
+    // remove any deleted, sticked, nsfw posts etc
+    const filteredSubRedditPosts = subRedditPosts.filter(
+      (subRedditPost: any) => {
+        return (
+          !subRedditPost.data.stickied &&
+          subRedditPost.data.stickied !== "BOT" &&
+          subRedditPost.data.body !== "[removed]"
+        );
+      }
     );
 
-    const subRedditData: [] = subRedditMetaData.data.data.children;
-
     // get an array of all ids of posts that we want
-    const postIds = subRedditData.map((item: any) => item.data.id);
+    const postIds = filteredSubRedditPosts.map((item: any) => item.data.id);
 
     // helper function to fetch article data
     //returns only data we need to create article
     const fetchArticle = async (postId: string) => {
-      const urlEndPoint = `${subRedditEndPoint}/${postId}.json`;
+      const articleEndPoint = `/r/${subreddit}/${postId}.json`;
 
       try {
-        const res = await fetchReddit.get(urlEndPoint);
+        const res = await fetchReddit.get(articleEndPoint);
         const title = res.data[0].data.children[0].data.title;
-        const comments = res.data[1].data.children;
+        const comments = res.data[1].data.children.slice(0, 2);
 
-        //  filter out any uncessary comments
+        //  filter out any uncessary comments, anything else we dont want
         //  then return top 2 (reddit api sorts by most popular by default)
-        const commentsWithStickedRemoved = comments
-          .filter((comment: any): any => {
-            return (
-              !comment.data.stickied &&
-              comment.data.author_flair_text !== "BOT" &&
-              comment.data.body !== "[removed]"
-            );
-          })
-          .slice(0, 2);
 
-        //article should have two comments from the post - For Now
+        const filteredComments = comments.reduce(
+          (filtered: any, comment: any) => {
+            const count = 2;
+            if (
+              !comment.data.sticked &&
+              comment.data.author_flair_text !== "BOT" &&
+              comment.data.body !== "[removed]" &&
+              count > 0
+            ) {
+              const filteredComment: any = {};
+              filteredComment.body = comment.data.body;
+              if (filteredComment.body.slice(0, 4) === "&gt;") {
+                filteredComment.body = filteredComment.body.slice(4);
+              }
+              console.log(filteredComment.body);
+
+              filtered.push(filteredComment);
+            }
+            return filtered;
+          },
+          []
+        );
+
+        console.log(filteredComments);
+
+        // const commentsWithStickedRemoved = comments.filter(
+        //   (comment: any): any => {
+        //     return (
+        //       !comment.data.stickied &&
+        //       comment.data.author_flair_text !== "BOT" &&
+        //       comment.data.body !== "[removed]"
+        //     );
+        //   }
+        // ).map(comment) => {
+
+        // };
+
         const article = {
           articleTitle: title,
-          articleComments: comments,
+          articleComments: filteredComments,
           articleMeta: res.data[1].data,
         };
-        console.log(article);
         return article;
       } catch (err) {
         console.log(err);
@@ -81,12 +113,16 @@ export const fetchArticles = createAsyncThunk(
     };
 
     // fetch title and comments for each id
+    const fetchArticles = async (postIds: string[]) => {
+      const promises = postIds.map(async (id) => {
+        const article = await fetchArticle(id);
+        return article;
+      });
+      const articles = Promise.all(promises);
+      return articles;
+    };
 
-    const articles = postIds.map(async (id) => {
-      const articleData = await fetchArticle(id);
-      return articleData;
-    });
-
+    const articles = fetchArticles(postIds);
     return articles;
   }
 );
