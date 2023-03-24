@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react'
 import {useAppDispatch, useAppSelector} from './app/hooks'
-import SubRedditView from './features/subreddits/SubRedditView'
 import RedditArticles from './features/redditAPI/redditApiView'
+import SelectSubRedditBtn from './components/SelectSubRedditBtn/SelectSubRedditBtn'
+import Nav from './components/Nav/Nav'
 
-import './App.css'
+
+import './styles/main.css'
 
 function App() {
 
+
+  
+
+
   return (
-    <div className="App">
-      <SubRedditView/>
+    <div className='root-body'>
+      <div className='nav-container'>
+        <Nav/>
+      </div>
       <RedditArticles/>
       
       
