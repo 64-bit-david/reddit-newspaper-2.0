@@ -1,11 +1,12 @@
-import {useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchArticles, Article, ArticleComment } from './redditArticles';
 
 
 
-const redditAPIView = () => {
+const redditAPIView: React.FC = () => {
 
+    
   
 
     //access dispatch methods
@@ -16,22 +17,50 @@ const redditAPIView = () => {
     const subreddit = useAppSelector(state => state.subReddit.subRedditName)
     const isFetchingArticles = useAppSelector(state => state.articles.loading)
 
-    // console.log(articles)
 
-  
+    const [currentTime, setCurrentTime] = useState(Date.now())
+
+
 
     useEffect(() => {
         //dispatch the action
         dispatch(fetchArticles(subreddit))
-
+        setCurrentTime(Date.now())
     }, [subreddit])
+
+
+    const calculateTimeSince = (currentTime: number, timePosted: number): string => {
+      
+      // const timeDiff: number = currentTime - (timePosted * 1000)
+      
+      const currentDate = new Date(currentTime)
+      const datePosted = new Date(timePosted * 1000) //need to multiply by 1000 for js date object to get current date
+
+      //calculate difference between the two times in seconds
+      const timeDiffInSeconds = (currentDate.getTime() - datePosted.getTime() ) / 1000
+
+      const timeDiffInHours = timeDiffInSeconds / 3600
+
+
+
+      if (timeDiffInHours < 1) {
+        return `Comment posted less than 1 hour ago`
+      } else if (timeDiffInHours < 24){
+        const hours = Math.round(timeDiffInHours)
+        return `Comment posted ${hours} hours ago`
+      }else{
+        return `Comment posted more than 1 day ago`
+      }
+    }
     
     const renderComment = (commentData: ArticleComment) => {
+      const timeSinceComment = calculateTimeSince(currentTime, Number(commentData.createdAt))
+      console.log(timeSinceComment)
       return(
         <div key={commentData.id}>
           <p>{commentData.body}</p>
           <p>{commentData.author}</p>
-          <p>{commentData.createdAt}</p>
+          <p>{timeSinceComment}</p>
           <p>{commentData.url}</p>
         </div>
       )
