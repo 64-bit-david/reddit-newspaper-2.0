@@ -1,18 +1,20 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import fetchReddit from "../../apis/fetchReddit";
-import { store } from "../../app/store";
 
-interface ArticleComment {
-  comment: string;
-  user: string;
+export interface ArticleComment {
+  id: string;
+  body: string;
+  author: string;
   url: string;
-  timeStamp: string;
+  createdAt: string;
 }
 
-interface Article {
+export interface Article {
+  id: string;
   title: string;
   comments: ArticleComment[];
   url: string;
+  meta: object;
 }
 
 interface InitialState {
@@ -59,6 +61,8 @@ export const fetchArticles = createAsyncThunk(
 
       try {
         const res = await fetchReddit.get(articleEndPoint);
+        const articleURL = `https://www.reddit.com${articleEndPoint}`;
+        const articleId = res.data[1].data.children[0].data.parent_id;
         const title = res.data[0].data.children[0].data.title;
         const comments = res.data[1].data.children.slice(0, 2);
 
@@ -72,11 +76,14 @@ export const fetchArticles = createAsyncThunk(
               comment.data.author_flair_text !== "BOT" &&
               comment.data.body !== "[removed]"
             ) {
-              const filteredComment: any = {};
-              filteredComment.body = comment.data.body;
-              filteredComment.createdAt = comment.data.created;
-              filteredComment.author = comment.data.author;
-              filteredComment.url = comment.data.permalink;
+              const filteredComment: ArticleComment = {
+                id: comment.data.id,
+                body: comment.data.body,
+                createdAt: comment.data.created,
+                author: comment.data.author,
+                url: comment.data.permalink,
+              };
+
               if (filteredComment.body.slice(0, 4) === "&gt;") {
                 filteredComment.body = filteredComment.body.slice(4);
               }
@@ -87,22 +94,12 @@ export const fetchArticles = createAsyncThunk(
           []
         );
 
-        // const commentsWithStickedRemoved = comments.filter(
-        //   (comment: any): any => {
-        //     return (
-        //       !comment.data.stickied &&
-        //       comment.data.author_flair_text !== "BOT" &&
-        //       comment.data.body !== "[removed]"
-        //     );
-        //   }
-        // ).map(comment) => {
-
-        // };
-
-        const article = {
-          articleTitle: title,
-          articleComments: filteredComments,
-          articleMeta: res.data[1].data,
+        const article: Article = {
+          id: articleId,
+          title: title,
+          comments: filteredComments,
+          url: articleURL,
+          meta: res.data[1].data,
         };
         return article;
       } catch (err) {
@@ -135,9 +132,12 @@ const redditArticles = createSlice({
     });
     builder.addCase(
       fetchArticles.fulfilled,
-      (state, action: PayloadAction<any>) => {
+      (state, action: PayloadAction<(Article | undefined)[]>) => {
         (state.loading = false),
-          (state.data = action.payload),
+          //remove any undefined values
+          (state.data = action.payload.filter(
+            (article): article is Article => article !== undefined
+          )),
           (state.error = "");
       }
     );

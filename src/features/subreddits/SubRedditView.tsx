@@ -26,7 +26,6 @@ const SubRedditView = ({sideBarActive}) => {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         let subreddit = e.currentTarget.value
         dispatch(selectSubReddit(subreddit))
-        dispatch(fetchArticles(subReddit))
     }
 
     

@@ -25,6 +25,10 @@
   margin-bottom: 4rem;
 }
 
+.main-body {
+  margin: 2rem;
+}
+
 ul {
   list-style-type: none;
   border: 1px solid black;

@@ -1,10 +1,14 @@
 import React, {useState} from 'react'
 import {BsArrowDownRightCircleFill} from 'react-icons/bs'
+import { useAppSelector } from '../../app/hooks'
 
 const SelectSubRedditBtn = ({sideBarActive, setSideBarActive}) => {
 
 
   const [style, setStyle] = useState('inactive')
+
+  const subreddit = useAppSelector(state => state.subReddit.subRedditName)
+
 
   
   
@@ -20,7 +24,7 @@ const SelectSubRedditBtn = ({sideBarActive, setSideBarActive}) => {
     <button 
         className="select-sub-btn"
         onClick={handleClick}>
-            subreddit <BsArrowDownRightCircleFill  className={style} />
+            {subreddit} <BsArrowDownRightCircleFill  className={style} />
         
     </button>
   )
