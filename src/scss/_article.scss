@@ -1,0 +1,13 @@
+.article {
+    border: 1px solid black;
+
+
+    .article-title{
+        font-size: 1.3rem;
+
+        &.headline{
+            
+            // font-size: 3rem;
+        }
+    }
+}

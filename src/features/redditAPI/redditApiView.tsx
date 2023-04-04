@@ -7,7 +7,7 @@ import { fetchArticles, Article, ArticleComment } from './redditArticles';
 const redditAPIView: React.FC = () => {
 
     
-  
+    
 
     //access dispatch methods
     const dispatch = useAppDispatch()
@@ -31,7 +31,6 @@ const redditAPIView: React.FC = () => {
 
     const calculateTimeSince = (currentTime: number, timePosted: number): string => {
       
-      // const timeDiff: number = currentTime - (timePosted * 1000)
       
       const currentDate = new Date(currentTime)
       const datePosted = new Date(timePosted * 1000) //need to multiply by 1000 for js date object to get current date
@@ -44,24 +43,31 @@ const redditAPIView: React.FC = () => {
 
 
       if (timeDiffInHours < 1) {
-        return `Comment posted less than 1 hour ago`
+        return `Posted less than 1 hour ago`
       } else if (timeDiffInHours < 24){
         const hours = Math.round(timeDiffInHours)
-        return `Comment posted ${hours} hours ago`
+        return `Posted ${hours} hours ago`
       }else{
-        return `Comment posted more than 1 day ago`
+        return `Posted more than 1 day ago`
       }
     }
+
+
     
     const renderComment = (commentData: ArticleComment) => {
       const timeSinceComment = calculateTimeSince(currentTime, Number(commentData.createdAt))
-      console.log(timeSinceComment)
       return(
         <div key={commentData.id}>
-          <p>{commentData.body}</p>
-          <p>{commentData.author}</p>
-          <p>{timeSinceComment}</p>
-          <p>{commentData.url}</p>
+          <div className='comment-head'>
+            <p>Reddit user 
+              <strong> {commentData.author}</strong> says: 
+            </p>
+            <p>{timeSinceComment}</p>
+          </div>
+          <div className="comment-body">
+            <p>{commentData.body}</p>
+          </div>
+          {/* <p>{commentData.url}</p> */}
         </div>
       )
     }
@@ -78,21 +84,35 @@ const redditAPIView: React.FC = () => {
       if (articles.length === 0) {
         return <div>no articles</div>;
       } else {
-        return articles.map((article) => {
-          return (
-            <div key={article.id}>
-              <h3>{article.title}</h3>
-              {renderArticleComments(article.comments)}
-            </div>
-          );
+        return articles.map((article, index) => {
+          let articleClassName = "article"
+          if (index === 0){
+            return (   
+                <div key={article.id} className={articleClassName}>
+                  <h3 className='article-title headline'>
+                    <a href={`https://reddit.com${article.url}`}>{article.title}</a>
+                  </h3>
+                  {renderArticleComments(article.comments)}
+                </div>
+                )
+          }else{
+            return (
+              <div key={article.id} className={articleClassName}>
+                <h3 className='article-title'>
+                    <a href={`https://reddit.com${article.url}`}>{article.title}</a>
+                  </h3>
+                {renderArticleComments(article.comments)}
+              </div>
+            );
+          }
+          
         });
       }
     };
 
   
   return (
-    <div>
-      
+    <div className='articles-container'>
       { isFetchingArticles ? <div>Loading....</div> : renderArticles(articles)}    
     </div>
   )
