@@ -65,8 +65,13 @@ a {
   text-decoration: none;
 }
 
+.btn {
+  background-color: transparent;
+}
+
 .top-div {
   background-color: rgb(242, 250, 250);
+  border: 5px solid black;
 }
 
 .select-sub-btn {
@@ -120,10 +125,57 @@ a {
 
 .article {
   border: 1px solid black;
+  background-color: rgb(242, 250, 250);
+  position: relative;
 }
 .article .article-title {
   font-size: 1.3rem;
+  text-transform: uppercase;
+  margin: 0 1.5rem;
 }
+.article .article-expand-btn {
+  position: absolute;
+  margin: 0;
+  top: 0;
+  right: 0;
+  border-left: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+  border-right: none;
+  border-top: none;
+}
+.article.full-article-container {
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+  z-index: 5;
+}
+.article.full-article-container .full-article {
+  border: 13px solid black;
+}
+.article.full-article-container .article-title {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.article.full-article-container .article-time-posted {
+  margin-bottom: 3rem;
+}
+.article.full-article-container .article-subheader {
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+.article.full-article-container .link-to-post {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.article.full-article-container .article-expand-btn {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
 ul {
   list-style-type: none;
   border: 1px solid black;

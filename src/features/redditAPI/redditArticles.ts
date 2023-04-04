@@ -14,6 +14,7 @@ export interface Article {
   title: string;
   comments: ArticleComment[];
   url: string;
+  createdAt: string;
   meta: object;
 }
 
@@ -64,7 +65,12 @@ export const fetchArticles = createAsyncThunk(
         const articleURL = `https://www.reddit.com${articleEndPoint}`;
         const articleId = res.data[1].data.children[0].data.parent_id;
         const title = res.data[0].data.children[0].data.title;
-        const comments = res.data[1].data.children.slice(0, 2);
+        const createdAt = res.data[0].data.children[0].data.created;
+
+        //Wont need this many comments, however some may be filterout out so limit some
+        //Then less need to be processed and if one or two are filtered out there should
+        //still be enough needed for the article
+        const comments = res.data[1].data.children.slice(0, 8);
 
         //  filter out any uncessary comments, anything else we dont want
         //  then return top 2 (reddit api sorts by most popular by default)
@@ -74,7 +80,8 @@ export const fetchArticles = createAsyncThunk(
             if (
               !comment.data.sticked &&
               comment.data.author_flair_text !== "BOT" &&
-              comment.data.body !== "[removed]"
+              comment.data.body !== "[removed]" &&
+              comment.data.distinguished !== "moderator"
             ) {
               const filteredComment: ArticleComment = {
                 id: comment.data.id,
@@ -89,7 +96,7 @@ export const fetchArticles = createAsyncThunk(
               }
               filtered.push(filteredComment);
             }
-            return filtered;
+            return filtered.slice(0, 5);
           },
           []
         );
@@ -99,6 +106,7 @@ export const fetchArticles = createAsyncThunk(
           title: title,
           comments: filteredComments,
           url: articleURL,
+          createdAt: createdAt,
           meta: res.data[1].data,
         };
         return article;
