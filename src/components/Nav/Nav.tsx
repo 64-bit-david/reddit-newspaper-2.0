@@ -19,7 +19,7 @@ const Nav = () => {
             <h1>Reddit Newspaper</h1>
           </div>
           <div className="nav-right">
-            <h2>Second Edition!!</h2>
+            <h5> CURRENT EDITION</h5>
           </div>
           <SubRedditView sideBarActive={sideBarActive}/>
 

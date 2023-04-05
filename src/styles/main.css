@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "chomsky";
+  src: url("../fonts/TheQualityBrave-Regular.ttf");
+}
 /* Josh Comeau Reset */
 /*
   1. Use a more-intuitive box-sizing model.
@@ -93,8 +97,29 @@ a {
 
 .nav {
   display: flex;
+  gap: 15px;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  align-items: center;
+  margin: 1rem 0.25rem;
+}
+.nav h1 {
+  font-family: "chomsky", cursive;
+  text-align: center;
+  font-size: 2.2rem;
+  line-height: 2.5rem;
+}
+.nav h5 {
+  font-size: 1rem;
+  text-align: center;
+  border: 2px solid black;
+  font-style: italic;
+  letter-spacing: 0.1px;
+  margin: 0;
+  padding: 0.1rem;
+}
+.nav .select-sub-btn {
+  background-color: rgb(242, 250, 250);
+  padding: 0.5rem 0.5rem;
 }
 
 .nav-container {

@@ -1,7 +1,30 @@
 .nav{
     display: flex;
+    gap: 15px;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    align-items: center;
+    margin: 1rem .25rem;
+
+    h1{
+        font-family: 'chomsky', cursive;
+        text-align: center;
+        font-size: 2.2rem;
+        line-height: 2.5rem;
+    }
+    h5{
+        font-size: 1rem;
+        text-align: center;
+        border: 2px solid black;
+        font-style: italic;
+        letter-spacing: .1px;
+        margin: 0;
+        padding: .1rem;
+    }
+
+    .select-sub-btn{
+        background-color: $background-color;
+        padding: .5rem .5rem;
+    }
 }
 
 .nav-container{

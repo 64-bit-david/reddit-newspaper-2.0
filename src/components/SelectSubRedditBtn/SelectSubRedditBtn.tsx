@@ -24,7 +24,7 @@ const SelectSubRedditBtn = ({sideBarActive, setSideBarActive}) => {
     <button 
         className="select-sub-btn"
         onClick={handleClick}>
-            {subreddit} <BsArrowDownRightCircleFill  className={style} />
+            {`/r/${subreddit}`} <BsArrowDownRightCircleFill  className={style} />
         
     </button>
   )
