@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "chomsky";
+  font-family: "quality-brave";
   src: url("../fonts/TheQualityBrave-Regular.ttf");
 }
 /* Josh Comeau Reset */
@@ -69,8 +69,10 @@ a {
   text-decoration: none;
 }
 
-.btn {
-  background-color: transparent;
+button:hover {
+  background-color: rgb(44, 44, 44);
+  color: rgb(242, 250, 250);
+  cursor: pointer;
 }
 
 .top-div {
@@ -78,34 +80,73 @@ a {
   border: 5px solid black;
 }
 
-.select-sub-btn {
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 5;
-}
-.select-sub-btn .active {
-  transform: rotate(0deg);
-  transition: transform 0.4s ease-in-out;
-}
-.select-sub-btn .inactive {
-  transform: rotate(90deg);
-  transition: transform 0.4s ease-in-out;
-}
-
 .nav {
   display: flex;
+  flex-direction: row-reverse;
   gap: 15px;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 1rem 0.25rem;
 }
+@media (min-width: 768px) {
+  .nav {
+    flex-direction: row;
+  }
+}
+.nav .nav-left {
+  flex-basis: 10%;
+}
+.nav .nav-left .select-sub-btn-container .select-sub-btn {
+  background-color: rgb(44, 44, 44);
+  color: rgb(242, 250, 250);
+  padding: 0.5rem 0.5rem;
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 1.25em;
+  padding: 1rem;
+  position: relative;
+  z-index: 5;
+}
+.nav .nav-left .select-sub-btn-container .select-sub-btn:hover {
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+.nav .nav-left .select-sub-btn-container .icon {
+  font-size: 1.1em;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  color: rgb(242, 250, 250);
+  border: none;
+}
+.nav .nav-left .select-sub-btn-container .icon.left-icon {
+  left: 0;
+}
+.nav .nav-left .select-sub-btn-container .icon.right-icon {
+  right: 0;
+}
+.nav .nav-left .select-sub-btn-container .inactive {
+  transform: rotate(45deg);
+  transition: transform 0.4s ease-in-out;
+}
+.nav .nav-left .select-sub-btn-container .active {
+  transform: rotate(135deg);
+  transition: transform 0.4s ease-in-out;
+}
+.nav .nav-right {
+  display: none;
+  visibility: hidden;
+}
+@media (min-width: 768px) {
+  .nav .nav-right {
+    display: block;
+    visibility: visible;
+  }
+}
 .nav h1 {
-  font-family: "chomsky", cursive;
+  font-family: "quality-brave", cursive;
   text-align: center;
-  font-size: 2.2rem;
+  font-size: 2.7rem;
   line-height: 2.5rem;
 }
 .nav h5 {
@@ -116,10 +157,6 @@ a {
   letter-spacing: 0.1px;
   margin: 0;
   padding: 0.1rem;
-}
-.nav .select-sub-btn {
-  background-color: rgb(242, 250, 250);
-  padding: 0.5rem 0.5rem;
 }
 
 .nav-container {
@@ -167,6 +204,14 @@ a {
   border-bottom: 0.5px solid black;
   border-right: none;
   border-top: none;
+  background-color: rgb(242, 250, 250);
+  color: rgb(44, 44, 44);
+}
+.article .article-expand-btn:hover {
+  background-color: rgb(44, 44, 44);
+  color: rgb(242, 250, 250);
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
 }
 .article.full-article-container {
   position: fixed;
@@ -201,32 +246,65 @@ a {
   margin-top: 1rem;
 }
 
-ul {
-  list-style-type: none;
-  border: 1px solid black;
+.sr-menu {
   position: fixed;
+  border: 5px solid black;
   height: 100%;
   top: 0;
-  left: 0;
-  overflow-x: hidden;
-  background-color: #111;
-  z-index: 1;
+  right: -20px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  background-color: rgb(242, 250, 250);
+  z-index: 1;
   padding: 6rem 0 0 0;
-  transition: 0.5s;
+  transition: 0.35s;
 }
-ul.active {
+.sr-menu.active {
   width: 250px;
+  right: 0;
+  overflow-y: hidden;
 }
-ul.inactive {
+.sr-menu.inactive {
   width: 0;
 }
-ul .srm-btn-container {
+@media (min-width: 1024px) {
+  .sr-menu {
+    left: -20px;
+  }
+  .sr-menu.active {
+    width: 250px;
+    left: 0;
+  }
+}
+.sr-menu h4 {
+  text-align: center;
+  margin: 1.25rem 0;
+}
+.sr-menu ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.sr-menu .srm-btn-container {
   border: 1px solid white;
   width: 100%;
   text-align: center;
 }
-ul .srm-btn-container .srm-btn {
-  width: 95%;
+.sr-menu .srm-btn-container .srm-btn {
+  width: 100%;
+  background-color: rgb(242, 250, 250);
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 1.5em;
+  border-left: none;
+  border-right: none;
+  margin: 5px 0;
+}
+.sr-menu .srm-btn-container .srm-btn:hover {
+  background-color: rgb(44, 44, 44);
+  color: rgb(242, 250, 250);
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

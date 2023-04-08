@@ -25,6 +25,15 @@
         border-bottom: .5px solid black;
         border-right: none;
         border-top: none;
+        background-color: $background-color;
+        color: $main-font-color;
+
+        &:hover{
+            background-color: $main-font-color;
+            color: $background-color;
+            transition: all .1s ease-in-out;
+            cursor: pointer;
+        }
 
     }
 

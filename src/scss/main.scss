@@ -66,8 +66,12 @@ a{
     text-decoration: none;
 }
 
-.btn{
-    background-color: transparent;
+button{
+    &:hover{
+      background-color: $main-font-color;
+      color: $background-color;
+      cursor: pointer;
+    }
 }
 
 
@@ -81,26 +85,7 @@ a{
 }
 
 
-.select-sub-btn{
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 5;
 
-    
-    .active{
-        transform: rotate(0deg);
-        transition: transform .4s ease-in-out;  
-    }
-
-    .inactive{
-        transform: rotate(90deg);
-        transition: transform .4s ease-in-out;  
-    }
-
-}
 
 
 
@@ -125,4 +110,4 @@ a{
 @import 'nav';
 @import 'layout';
 @import 'article';
-@import 'subRedditMenu'
+@import 'sideMenu'
