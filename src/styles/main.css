@@ -90,6 +90,14 @@ button:hover {
   border: 5px solid black;
 }
 
+.articles-loading {
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 150vh;
+}
+
 .nav {
   display: flex;
   flex-direction: row-reverse;

@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchArticles, Article, ArticleComment } from './redditArticles';
-import {BsArrowsAngleContract} from 'react-icons/bs';
-import {FaExpand} from 'react-icons/fa';
 import {IoMdContract, IoMdExpand} from 'react-icons/io';
+import { Blocks, Oval } from 'react-loader-spinner';
 
 
 
@@ -203,7 +202,19 @@ const RedditArticlesView: React.FC = () => {
     const renderLoader = () => {
         return(
           <div className='articles-loading'>
-            Loading.......
+          <Oval
+            height={80}
+            width={80}
+            color="#5c5c5c"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel='oval-loading'
+            secondaryColor="#C2cbcb"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+
+          />
           </div>
         )
     }
