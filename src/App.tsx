@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import {useAppDispatch, useAppSelector} from './app/hooks'
-import RedditAPIView from './features/redditAPI/redditApiView'
+import RedditArticlesView from './features/redditArticles/redditArticlesView'
 import SelectSubRedditBtn from './components/SelectSubRedditBtn/SelectSubRedditBtn'
 import Nav from './components/Nav/Nav'
 
@@ -18,8 +18,14 @@ function App() {
       <div className='nav-container'>
         <Nav/>
       </div>
+      <div className='sub-header-container'>
+        
+      </div>
       <div className='main-body'>
-      <RedditAPIView/>  
+        <div>
+
+        </div>
+      <RedditArticlesView/>  
       </div>
       
     </div>

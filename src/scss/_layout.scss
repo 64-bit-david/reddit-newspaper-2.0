@@ -9,20 +9,7 @@
             
         }
 
-        .article {
-            padding: .2rem;
-            .article-title {
-                text-align: center;
-                &:hover{
-                    text-decoration: underline;
-                    transform: scale(1.005);
-                    transition: transform .2s ease-in-out;
-                }
-            }
-            p{
-                text-align: center;
-            }
-        }
+        
 
     }
 

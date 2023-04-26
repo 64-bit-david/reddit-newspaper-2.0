@@ -1,0 +1,10 @@
+@keyframes border-animation {
+    from {
+      border-top: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+    }
+    to {
+      border-top: 2px solid $main-line-color;
+      border-bottom: 2px solid $main-line-color;
+    }
+  }

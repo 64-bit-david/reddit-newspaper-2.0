@@ -1,13 +1,26 @@
 .article {
-    border: 1px solid black;
+    // border: 1px solid black;
     background-color: $background-color;
     position: relative;
-    
+    // border: 1px solid $main-line-color;
+    margin: .75rem;
 
     .article-title{
         font-size: 1.3rem;
         text-transform: uppercase;
-        margin: 0 1.5rem;
+        text-align: left;
+        border-top: 1px solid $main-line-color;
+        border-bottom: 1px solid $main-line-color;
+        padding: .4rem 2.4rem .4rem 0;
+        position: relative;
+        margin-bottom: 1rem;
+
+        &:hover{
+            text-decoration: underline;
+            transform: scale(1.005);
+            transition: transform .2s ease-in-out;
+        }
+
 
 
         &.headline{
@@ -18,24 +31,44 @@
 
     .article-expand-btn{
         position: absolute;
+        font-weight: bold;
         margin: 0;
-        top: 0;
+        top: 10px;
         right: 0;
-        border-left: .5px solid black;
-        border-bottom: .5px solid black;
-        border-right: none;
-        border-top: none;
-        background-color: $background-color;
-        color: $main-font-color;
+        padding: .24rem;
+        font-size: 1.5rem;
+        // transform: translateY(-50%);
+        background-color: $main-font-color;
+        color: $background-color;
 
         &:hover{
-            background-color: $main-font-color;
-            color: $background-color;
+            background-color: $background-color;
+            border: none;
+            color: $main-font-color;
             transition: all .1s ease-in-out;
             cursor: pointer;
         }
 
     }
+
+    .comment-container{
+        margin-top: .3rem;
+
+        .comment{
+            font-size: 1.1em;
+        }
+
+        .time-since-comment{
+            font-size: .9em;
+            line-height: .9;
+            margin-bottom: .4rem;
+        }
+
+        .comment-body {
+            letter-spacing: .1px;
+        }
+    }
+
 
     &.full-article-container{
         position: fixed;
@@ -46,35 +79,79 @@
         width: 100vw;
         overflow-y: scroll;
         z-index: 5;
+        margin: 0;
 
         .full-article{
-            border: 13px solid black;
-        }
+            border: 10px solid black;
 
-        .article-title{
-            margin-top: 2rem;
-            margin-bottom: .75rem;
+            .article-title{
+                margin: 4rem .75rem .75rem .75rem;
+                padding: 0;
+                font-size: 1.45rem;
+                text-align: center;
+                &::before{
+                    position: absolute;
+                    content: '';
+                    width: 96%;
+                    top: -.4rem;
+                    left: 2.5%;
+                    height: 2px;
+                    background-color: $main-line-color;
+                }
+            
+                &::after{
+                    position: absolute;
+                    content: '';
+                    width: 95%;
+                    bottom: -.4rem;
+                    left: 2.5%;
+                    height: 2px;
+                    background-color: $main-line-color;
+                }
 
-        }
+            }
 
-        .article-time-posted{
-            margin-bottom: 3rem;
-        }
+            .article-time-posted{
+                margin-bottom: 1rem;
+            }
 
-        .article-subheader {
-            text-decoration: underline;
-            margin-bottom: 1rem;
-        }
+            .article-subheader {
+                text-decoration: underline;
+                margin-bottom: 1rem;
+            }
+            .comment-container{
+                position: relative;
+                padding: 1rem 0; 
+     
+            
+                &::after{
+                    position: absolute;
+                    content: '';
+                    width: 60%;
+                    bottom: -.4rem;
+                    left: 20%;
+                    height: 1px;
+                    background-color: $main-line-color;
+                }
+            }
+            .link-to-post-container{
+                margin: 3rem;
+                .link-to-post{
+                    display: block;
+                    color: $background-color;
+                    text-transform: uppercase;
+                    font-style: italic;
+                    font-size: 1rem;
+                    padding: .75rem 1.5rem;
+                    background-color: $main-font-color;
+                }
+            }
+        
 
-        .link-to-post{
-            text-decoration: underline;
-            font-weight: bold;
+            .article-expand-btn{
+                right: 13px;
+                top: 13px;
+            }
         }
-
-        .article-expand-btn{
-            margin-right: 1rem;
-            margin-top: 1rem;
-        }
-    
     }
 }

@@ -32,7 +32,7 @@ const initialState: InitialState = {
 
 //fetch and return relevant data in the form of an article
 export const fetchArticles = createAsyncThunk(
-  "redditApi/fetchArticles",
+  "RedditArticlesView/fetchArticles",
   async (subreddit: string) => {
     // request trending posts from subreddit endpoint
     const subRedditEndPoint = `/r/${subreddit}.json`;
@@ -131,7 +131,7 @@ export const fetchArticles = createAsyncThunk(
 );
 
 const redditArticles = createSlice({
-  name: "redditApi",
+  name: "redditArticles",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

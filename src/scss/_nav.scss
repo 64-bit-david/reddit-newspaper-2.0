@@ -1,10 +1,39 @@
-.nav{
+.nav {
     display: flex;
     flex-direction: row-reverse;
     gap: 15px;
     justify-content: space-around;
     align-items: center;
-    margin: 1rem .25rem;
+    margin: .5rem .25rem;
+    padding: .75rem 0;
+    position: relative;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    animation: border-animation 2s linear forwards;
+  
+  
+
+
+    &::before{
+        position: absolute;
+        content: '';
+        width: 96%;
+        top: -.4rem;
+        left: 2.5%;
+        height: 2px;
+        background-color: $main-line-color;
+      }
+      
+      
+    &::after{
+        position: absolute;
+        content: '';
+        width: 95%;
+        bottom: -.4rem;
+        left: 2.5%;
+        height: 2px;
+        background-color: $main-line-color;
+    }
 
     @media(min-width: $md){
         flex-direction: row;
