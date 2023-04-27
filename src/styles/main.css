@@ -98,7 +98,36 @@ button:hover {
   margin-bottom: 150vh;
 }
 
-.nav {
+.sub-header {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1.5px solid rgb(44, 44, 44);
+  border-bottom: 1.5px solid rgb(44, 44, 44);
+  margin: 1rem 2rem;
+  padding: 0.25rem;
+  position: relative;
+}
+.sub-header::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  top: 0.15rem;
+  height: 0.5px;
+  background-color: rgb(39, 39, 39);
+}
+.sub-header::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  bottom: 0.15rem;
+  height: 0.5px;
+  background-color: rgb(39, 39, 39);
+}
+
+.nav-container {
+  margin-bottom: 1rem;
+}
+.nav-container .nav {
   display: flex;
   flex-direction: row-reverse;
   gap: 15px;
@@ -107,11 +136,11 @@ button:hover {
   margin: 0.5rem 0.25rem;
   padding: 0.75rem 0;
   position: relative;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
   animation: border-animation 2s linear forwards;
 }
-.nav::before {
+.nav-container .nav::before {
   position: absolute;
   content: "";
   width: 96%;
@@ -120,7 +149,7 @@ button:hover {
   height: 2px;
   background-color: rgb(39, 39, 39);
 }
-.nav::after {
+.nav-container .nav::after {
   position: absolute;
   content: "";
   width: 95%;
@@ -130,14 +159,14 @@ button:hover {
   background-color: rgb(39, 39, 39);
 }
 @media (min-width: 768px) {
-  .nav {
+  .nav-container .nav {
     flex-direction: row;
   }
 }
-.nav .nav-left {
+.nav-container .nav .nav-left {
   flex-basis: 10%;
 }
-.nav .nav-left .select-sub-btn-container .select-sub-btn {
+.nav-container .nav .nav-left .select-sub-btn-container .select-sub-btn {
   background-color: rgb(44, 44, 44);
   color: rgb(242, 250, 250);
   padding: 0.5rem 0.5rem;
@@ -148,11 +177,11 @@ button:hover {
   position: relative;
   z-index: 5;
 }
-.nav .nav-left .select-sub-btn-container .select-sub-btn:hover {
+.nav-container .nav .nav-left .select-sub-btn-container .select-sub-btn:hover {
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
-.nav .nav-left .select-sub-btn-container .icon {
+.nav-container .nav .nav-left .select-sub-btn-container .icon {
   font-size: 1.1em;
   position: absolute;
   bottom: 0;
@@ -160,37 +189,37 @@ button:hover {
   color: rgb(242, 250, 250);
   border: none;
 }
-.nav .nav-left .select-sub-btn-container .icon.left-icon {
+.nav-container .nav .nav-left .select-sub-btn-container .icon.left-icon {
   left: 0;
 }
-.nav .nav-left .select-sub-btn-container .icon.right-icon {
+.nav-container .nav .nav-left .select-sub-btn-container .icon.right-icon {
   right: 0;
 }
-.nav .nav-left .select-sub-btn-container .inactive {
+.nav-container .nav .nav-left .select-sub-btn-container .inactive {
   transform: rotate(45deg);
   transition: transform 0.4s ease-in-out;
 }
-.nav .nav-left .select-sub-btn-container .active {
+.nav-container .nav .nav-left .select-sub-btn-container .active {
   transform: rotate(135deg);
   transition: transform 0.4s ease-in-out;
 }
-.nav .nav-right {
+.nav-container .nav .nav-right {
   display: none;
   visibility: hidden;
 }
 @media (min-width: 768px) {
-  .nav .nav-right {
+  .nav-container .nav .nav-right {
     display: block;
     visibility: visible;
   }
 }
-.nav h1 {
+.nav-container .nav h1 {
   font-family: "quality-brave", cursive;
   text-align: center;
   font-size: 2.7rem;
   line-height: 2.5rem;
 }
-.nav h5 {
+.nav-container .nav h5 {
   font-size: 1rem;
   text-align: center;
   border: 2px solid black;
@@ -198,10 +227,6 @@ button:hover {
   letter-spacing: 0.1px;
   margin: 0;
   padding: 0.1rem;
-}
-
-.nav-container {
-  margin-bottom: 4rem;
 }
 
 .main-body {

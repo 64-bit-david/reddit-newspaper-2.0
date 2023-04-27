@@ -6,6 +6,7 @@ import Nav from './components/Nav/Nav'
 
 
 import './styles/main.css'
+import SubHeader from './components/SubHeader/SubHeader'
 
 function App() {
 
@@ -18,9 +19,7 @@ function App() {
       <div className='nav-container'>
         <Nav/>
       </div>
-      <div className='sub-header-container'>
-        
-      </div>
+      <SubHeader/>
       <div className='main-body'>
         <div>
 
