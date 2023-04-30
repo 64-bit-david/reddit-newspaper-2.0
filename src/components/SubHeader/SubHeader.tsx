@@ -1,6 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Weather from '../Weather/Weather';
 
-const SubHeader: React.FC = () => {
+
+interface SubHeaderProps {
+  setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>, 
+  isModalActive: boolean
+}
+
+const SubHeader: React.FC<SubHeaderProps> = () => {
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28,15 +44,15 @@ const SubHeader: React.FC = () => {
       
  
     
-    
 
   return (
-    <div className='sub-header'>
+    <div className="sub-header">
         <div className='date-container'>
-        {getDate()}
+          {getDate()}
         </div>
         <div className='weather-container'>
-            <p>22deg</p>
+            <Weather 
+   />
         </div>
     </div>
   )

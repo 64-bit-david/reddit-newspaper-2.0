@@ -2,6 +2,20 @@
   font-family: "quality-brave";
   src: url("../fonts/TheQualityBrave-Regular.ttf");
 }
+.btn {
+  background-color: rgb(44, 44, 44);
+  color: rgb(242, 250, 250);
+  border: 1px solid rgb(44, 44, 44);
+}
+.btn:hover {
+  background-color: rgb(242, 250, 250);
+  color: rgb(44, 44, 44);
+  border: 1px solid transparent;
+  color: rgb(44, 44, 44);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
 @keyframes border-animation {
   from {
     border-top: 2px solid transparent;
@@ -101,11 +115,13 @@ button:hover {
 .sub-header {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   border-top: 1.5px solid rgb(44, 44, 44);
   border-bottom: 1.5px solid rgb(44, 44, 44);
   margin: 1rem 2rem;
   padding: 0.25rem;
   position: relative;
+  transition: all 0.3s ease-in;
 }
 .sub-header::before {
   position: absolute;
@@ -122,6 +138,68 @@ button:hover {
   bottom: 0.15rem;
   height: 0.5px;
   background-color: rgb(39, 39, 39);
+}
+.sub-header .weather-container {
+  transition: all 0.2s ease-in;
+  position: relative;
+}
+.sub-header .weather-container .weather-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 7px;
+  margin: 0.1rem;
+}
+.sub-header .weather-container .weather-btn:hover {
+  background-color: rgb(44, 44, 44);
+  color: rgb(242, 250, 250);
+}
+.sub-header .weather-container .weather-btn .weather-temp {
+  margin: 0 0.1rem;
+}
+.sub-header .weather-container .weather-btn .weather-icon-container {
+  width: 25px; /* adjust as needed */
+  height: 25px; /* adjust as needed */
+}
+.sub-header .weather-container .weather-btn .weather-icon-container .weather-icon {
+  width: 100%;
+  height: 100%;
+}
+.sub-header .weather-container .update-location {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  padding: 1rem;
+  right: 0;
+  background-color: rgb(242, 250, 250);
+  max-height: 0;
+  visibility: hidden;
+  border: 3px solid rgb(44, 44, 44);
+  overflow: hidden;
+  transition: opacity 0.2s ease-in-out, max-height 0.4s ease-in-out;
+  /* Add this block to specify the max-height value when the element is closed */
+}
+.sub-header .weather-container .update-location.open {
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px; /* adjust as needed */
+}
+.sub-header .weather-container .update-location:not(.open) {
+  max-height: 5;
+}
+.sub-header .weather-container .update-location h2 {
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.sub-header .weather-container .update-location input {
+  margin-bottom: 1.2rem;
+}
+.sub-header .weather-container .update-location button {
+  font-size: 1.2em;
+  width: 5rem;
+  margin-right: 0.2rem;
 }
 
 .nav-container {
@@ -264,8 +342,6 @@ button:hover {
   right: 0;
   padding: 0.24rem;
   font-size: 1.5rem;
-  background-color: rgb(44, 44, 44);
-  color: rgb(242, 250, 250);
 }
 .article .article-expand-btn:hover {
   background-color: rgb(242, 250, 250);
@@ -411,17 +487,15 @@ button:hover {
 }
 .sr-menu .srm-btn-container .srm-btn {
   width: 100%;
-  background-color: rgb(242, 250, 250);
   text-transform: uppercase;
   font-style: italic;
   font-size: 1.5em;
+  border: 2px solid transparent;
   border-left: none;
   border-right: none;
   margin: 5px 0;
 }
 .sr-menu .srm-btn-container .srm-btn:hover {
-  background-color: rgb(44, 44, 44);
-  color: rgb(242, 250, 250);
-  transition: all 0.1s ease-in-out;
-  cursor: pointer;
+  border-top: 2px solid rgb(44, 44, 44);
+  border-bottom: 2px solid rgb(44, 44, 44);
 }/*# sourceMappingURL=main.css.map */

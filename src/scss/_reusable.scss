@@ -17,3 +17,20 @@ $xxl: 2000px;
     font-family: 'quality-brave';
     src: url('../fonts/TheQualityBrave-Regular.ttf');
   }
+
+
+.btn {
+  background-color: $main-font-color;
+  color: $background-color;
+  border: 1px solid $main-font-color;
+
+  &:hover{
+                    
+      background-color: $background-color;
+      color: $main-font-color;
+      border: 1px solid transparent;
+      color: $main-font-color;
+      transition: all .2s ease-in-out;
+      cursor: pointer;
+}
+}

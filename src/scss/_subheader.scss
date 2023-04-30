@@ -1,11 +1,16 @@
 .sub-header{
     display: flex;
     justify-content: space-around;
+    align-items: center;
     border-top: 1.5px solid $main-font-color;
     border-bottom: 1.5px solid $main-font-color;
     margin: 1rem 2rem;
     padding: .25rem;
     position: relative;
+    transition: all .3s ease-in;
+
+
+
     
 
     &::before{
@@ -28,4 +33,76 @@
         height: .5px;
         background-color: $main-line-color;
     }
-}
+
+        .weather-container {
+            transition: all .2s ease-in;
+            position: relative;
+
+            .weather-btn{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 4px 7px;
+                    margin: .1rem;
+
+                    &:hover{
+                        background-color: $main-font-color;
+                        color: $background-color;
+                    }
+
+                    .weather-temp{
+                        margin: 0 .1rem;
+                    }
+
+                    .weather-icon-container {
+                        width: 25px; /* adjust as needed */
+                        height: 25px; /* adjust as needed */
+                    
+                        .weather-icon {
+                        width: 100%;
+                        height: 100%;
+                    }
+            }
+        }
+
+        .update-location {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 100;
+            padding: 1rem;
+            right: 0;
+            background-color: $background-color;
+            max-height: 0;
+            visibility: hidden;
+            border: 3px solid $main-font-color;
+            overflow: hidden;
+            transition: opacity 0.2s ease-in-out, max-height 0.4s ease-in-out;
+                      
+            &.open {
+              opacity: 1;
+              visibility: visible;
+              max-height: 500px; /* adjust as needed */
+            }
+            
+            /* Add this block to specify the max-height value when the element is closed */
+            &:not(.open) {
+              max-height: 5;
+            }
+
+            h2{
+                margin-bottom: .4rem;
+                font-style: italic;
+            }
+            input{
+                margin-bottom: 1.2rem;
+            }
+            button{
+                font-size: 1.2em;
+                width: 5rem;
+                margin-right: .2rem;
+            }
+          }
+        }
+    }   
