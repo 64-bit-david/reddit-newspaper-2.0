@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchArticles, Article, ArticleComment } from './redditArticles';
 import {IoMdContract, IoMdExpand} from 'react-icons/io';
-import { Blocks, Oval } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 
 
 
@@ -97,6 +97,28 @@ const RedditArticlesView: React.FC = () => {
       )
     }
 
+
+    const renderFullComments = (commentData: ArticleComment) => {
+
+      
+      const timeSinceComment = calculateTimeSince(currentTime, Number(commentData.createdAt))
+
+
+      return(
+        <div key={commentData.id} className='comment-container'>
+          <div className='comment-head full'>
+            <p className='comment'>Reddit user 
+              <strong> {commentData.author}</strong> says: 
+            </p>
+            <p className='time-since-comment full'>{timeSinceComment}</p>
+          </div>
+          <div className="comment-body">
+            {processComment(commentData.body, commentData.url)}
+          </div>
+        </div>
+      )
+    }
+
     
     const renderMiniArticleComments = (comments: ArticleComment[]) => {
       if(comments.length === 0){
@@ -119,7 +141,7 @@ const RedditArticlesView: React.FC = () => {
       }
       
       return comments.slice(0, 5).map((comment, i) => {          
-        return renderMiniComment(comment)
+        return renderFullComments(comment)
       })
     }
 
@@ -159,27 +181,27 @@ const RedditArticlesView: React.FC = () => {
         return (   
           <div key={fullArticleData.id} className='article full-article-container'>
             <div className="full-article">
-            <h3 className='article-title'>
-              <a href={`https://reddit.com${fullArticleData.url}`}>{fullArticleData.title}</a>
-          
-            </h3>
-            <p className='article-time-posted'>{timePosted}</p>
-            <h4 className='article-subheader'>What Reddit Users Are Saying:</h4>
-            {renderFullArticleComments(fullArticleData.comments)}
-            <div className='link-to-post-container'>
-              <a 
-                  href={fullArticleData.url}
-                  className='link-to-post'
-                  
-                  >View all comments on reddit</a>
-            </div>
-              <button 
-              className='article-expand-btn btn' 
-              type="button"
-              onClick={() => setFullArticleData(null)}
-              >
-              <IoMdContract/>
-            </button>
+              <h3 className='article-title'>
+                <a href={`https://reddit.com${fullArticleData.url}`}>{fullArticleData.title}</a>
+            
+              </h3>
+              <p className='article-time-posted'>{timePosted}</p>
+              <h4 className='article-subheader'>What Reddit Users Are Saying:</h4>
+                {renderFullArticleComments(fullArticleData.comments)}
+              <div className='link-to-post-container'>
+                <a 
+                    href={fullArticleData.url}
+                    className='link-to-post'
+                    
+                    >View all comments on reddit</a>
+              </div>
+                <button 
+                className='article-expand-btn btn' 
+                type="button"
+                onClick={() => setFullArticleData(null)}
+                >
+                <IoMdContract/>
+              </button>
             </div>
             
           </div>

@@ -8,6 +8,7 @@
     padding: .25rem;
     position: relative;
     transition: all .3s ease-in;
+    height: 50px;
 
 
 
@@ -40,6 +41,7 @@
 
             .weather-btn{
                     display: flex;
+                    position: relative;
                     justify-content: center;
                     align-items: center;
                     padding: 4px 7px;

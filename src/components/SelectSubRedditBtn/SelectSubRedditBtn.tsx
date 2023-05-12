@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {TbArrowBadgeRight} from 'react-icons/tb'
 import { useAppSelector } from '../../app/hooks'
 

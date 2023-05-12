@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import fetchWeather from '../../apis/fetchWeather';
+import { RevolvingDot } from 'react-loader-spinner';
 
 interface WeatherObjCondition {
     text?: string | null,
@@ -11,6 +12,7 @@ interface WeatherObject {
     temperature_c?: number | null,
     condition?: string | null,
     icon?: string | undefined,
+    error: boolean,
 
 }
 
@@ -18,8 +20,10 @@ const Weather = () => {
 
     const [weatherObj, setWeatherObj] = useState<WeatherObject|null>(null);
     const [location, setLocation] = useState<string>("London");
+    const [weatherError, setWeatherError] = useState(false);
     const [showUpdateLocation, setShowUpdateLocation] = useState(false);
-    const [newLocation, setNewLocation] = useState(location);
+    const [newLocation, setNewLocation] = useState<string>(location);
+    const [fetchingWeather, setFetchingWeather] = useState<boolean>(true);
 
 
 
@@ -44,8 +48,10 @@ const Weather = () => {
         setShowUpdateLocation(false);
       };
 
+
     useEffect(() => {
         const getWeatherData = async() =>{
+            setFetchingWeather(true)
             try{
                 const res = await fetchWeather.get('', {
                     params: {
@@ -56,15 +62,21 @@ const Weather = () => {
                     location: res.data.location.name,
                     temperature_c: res.data.current.temp_c,
                     condition: res.data.current.condition.text,
-                    icon: res.data.current.condition.icon
+                    icon: res.data.current.condition.icon,
+                    error: false
                 }
                 setWeatherObj(newWeatherObj);
+                setFetchingWeather(false)
+                setWeatherError(false)
             }catch(err){
                 console.log(err)
+                setWeatherError(true)
                 const newWeatherObj: WeatherObject = {
-                    location: "London"
+                    location: "London",
+                    error: true
                 }
                 setWeatherObj(newWeatherObj);
+                setFetchingWeather(false)
             }
         }   
 
@@ -72,12 +84,45 @@ const Weather = () => {
 
     }, [location])
 
-    
 
-  return (
-    <div>
+
+    const weatherBtnRenderHelper = () => {
+        if(weatherError){
+           return ( <div className='weather-container'>
+            <button className='weather-btn btn' onClick={() => setShowUpdateLocation(!showUpdateLocation)}>
+                    <div className='weather-location'>
+                        {weatherObj?.location}
+                    </div>             
+            </button>
+            </div>)
+        }
+        else if(fetchingWeather){
+            return(
         <div className='weather-container'>
-            
+                <button className='weather-btn btn'>
+                    {/* need to fix height issues with this */}
+                    Loading
+                    {/* <RevolvingDot
+                      color="#f2fafa"
+                      secondaryColor=''
+                      ariaLabel="revolving-dot-loading"
+                      wrapperStyle={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        height: '100%',
+                        width: '100%'
+                      }}
+                      wrapperClass=""
+                      visible={true}
+                        /> */}
+                </button>
+            </div>
+            )
+        }else{
+            return(
+        <div className='weather-container'>
             <button className='weather-btn btn' onClick={() => setShowUpdateLocation(!showUpdateLocation)}>
                     <div className='weather-location'>
                         {weatherObj?.location}
@@ -90,6 +135,17 @@ const Weather = () => {
                          alt={`Icon showing weather describing ${weatherObj?.condition}  weather.`} />
                     </div>
             </button>
+            </div>
+            )
+        }
+    }
+
+    
+
+  return (
+    <div>
+            
+            {weatherBtnRenderHelper()}
 
             <div className={showUpdateLocation ? "update-location open": "update-location"}>
                 <h2>Change Location</h2>
@@ -105,7 +161,6 @@ const Weather = () => {
 
         </div>
 
-    </div>
   )
 }
 
