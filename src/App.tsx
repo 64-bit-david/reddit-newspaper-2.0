@@ -7,6 +7,7 @@ import Nav from './components/Nav/Nav'
 
 import './styles/main.css'
 import SubHeader from './components/SubHeader/SubHeader'
+import Footer from './components/Footer/Footer'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         </div>
       <RedditArticlesView/>  
       </div>
+      <Footer/>
       
     </div>
   )

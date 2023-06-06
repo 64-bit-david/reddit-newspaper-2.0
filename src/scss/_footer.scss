@@ -1,0 +1,21 @@
+.footer-container{
+    margin: 2rem;
+    text-align: center;
+    a {
+        color: $main-font-color;
+        border-top: 1px solid $main-font-color;
+        border-bottom: 1px solid $main-font-color;
+        text-decoration: none;
+        transition: all .2s ease-in;
+
+        &:hover{
+            font-weight: bold;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            text-decoration: underline;
+        }
+    }
+
+
+
+}
